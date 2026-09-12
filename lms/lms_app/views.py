@@ -41,6 +41,7 @@ def books(request):
     
 
 def delete(request, id):
+    book = Book.objects.get(id=id)
     context ={
         'category': Category.objects.all(),
         'formcat': CategoryForm(),
@@ -50,7 +51,9 @@ def delete(request, id):
         if formcat.is_valid():
             formcat.save()
             return redirect('index')
-            
+    if request.method == 'POST':
+        book.delete()
+        return redirect('index')
     return render(request, "pages/delete.html", context)
 
 
