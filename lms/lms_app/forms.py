@@ -1,5 +1,6 @@
 # from for add category and category
 
+from django.contrib.admin import widgets
 from django import forms
 from .models import Category, Book
 
@@ -34,8 +35,9 @@ class BookForm(forms.ModelForm):
 
 
 class CategoryForm(forms.ModelForm):
-    name = forms.CharField(max_length=100)
-
     class Meta:
         model = Category
         fields = ['name']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter the category name'}),
+        }
